@@ -1,0 +1,24 @@
+p, observer, /api/user/me, GET
+p, minter, /api/user/me, GET
+p, admin, /api/user*, (GET)|(POST)
+p, superadmin, /api/user*, (GET)|(POST)|(PUT)
+
+p, observer, /api/transaction*, GET
+p, minter, /api/transaction*, GET
+p, admin, /api/transaction*, GET
+p, superadmin, /api/transaction*, GET
+
+p, observer, /api/nfts*, GET
+p, minter, /api/nfts*, (GET)|(POST)
+p, admin, /api/nfts*, (GET)|(POST)
+p, superadmin, /api/nfts*, (GET)|(POST)
+
+p, observer, /api/manualtransfer*, GET
+p, minter, /api/manualtransfer*, (GET)|(POST)
+p, admin, /api/manualtransfer*, (GET)|(POST)
+p, superadmin, /api/manualtransfer*, (GET)|(POST)
+
+p, observer, /api/contract*, GET
+p, minter, /api/contract*, GET
+p, admin, /api/contract*, (GET)|(POST)|(PUT)
+p, admin, /api/contract*, (GET)|(POST)|(PUT)
