@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"fmt"
-	"math/rand"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -165,95 +164,95 @@ type TextForm struct {
 }
 
 func MintTextNFT(c *gin.Context) {
-	VsysHost := os.Getenv("VSYS_HOST")
-	VsysSeed := os.Getenv("VSYS_SEED")
+	// VsysHost := os.Getenv("VSYS_HOST")
+	// VsysSeed := os.Getenv("VSYS_SEED")
 
-	api := gv.NewNodeAPI(VsysHost)
-	ch := gv.NewChain(api, gv.TEST_NET)
-	wal, _ := gv.NewWalletFromSeedStr(VsysSeed)
-	acnt, _ := wal.GetAccount(ch, 0)
+	// api := gv.NewNodeAPI(VsysHost)
+	// ch := gv.NewChain(api, gv.TEST_NET)
+	// wal, _ := gv.NewWalletFromSeedStr(VsysSeed)
+	// acnt, _ := wal.GetAccount(ch, 0)
 
-	// nc, _ := gv.RegisterNFTCtrt(acnt, "")
-	// fmt.Println(nc.CtrtId)
+	// // nc, _ := gv.RegisterNFTCtrt(acnt, "")
+	// // fmt.Println(nc.CtrtId)
 
-	// test ctrtId
-	ctrtId := "CEyXxA6joy1PN5nxnn55uvC9Ny7AZQ3EZvX"
-	nc, err := gv.NewNFTCtrt(ctrtId, ch)
-	if err != nil {
-		c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
-	}
+	// // test ctrtId
+	// ctrtId := "CEyXxA6joy1PN5nxnn55uvC9Ny7AZQ3EZvX"
+	// nc, err := gv.NewNFTCtrt(ctrtId, ch)
+	// if err != nil {
+	// 	c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
+	// }
 
-	f, err := c.MultipartForm()
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-	}
+	// f, err := c.MultipartForm()
+	// if err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	// }
 
-	sh := ipfs.NewShell("http://127.0.0.1:5001")
+	// sh := ipfs.NewShell("http://127.0.0.1:5001")
 
-	metainfo := f.Value["MetaInfo"][0]
-	metacid, err := sh.Add(strings.NewReader(metainfo))
-	if err != nil {
-		fmt.Println(err.Error())
-		c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
-		return
-	}
+	// metainfo := f.Value["MetaInfo"][0]
+	// metacid, err := sh.Add(strings.NewReader(metainfo))
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
+	// 	return
+	// }
 
-	text := f.Value["Text"][0]
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-	}
+	// text := f.Value["Text"][0]
+	// if err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	// }
 
-	nftcid, err := sh.Add(strings.NewReader(text))
-	if err != nil {
-		fmt.Println(err.Error())
-		c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
-		return
-	}
+	// nftcid, err := sh.Add(strings.NewReader(text))
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
+	// 	return
+	// }
 
-	fmt.Printf("%T, %v\n", nftcid, nftcid)
+	// fmt.Printf("%T, %v\n", nftcid, nftcid)
 
-	ret, err := nc.Issue(acnt, metacid, nftcid)
-	if err != nil {
-		fmt.Println(err.Error())
-		c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
-	}
-	txId := string(ret.Id)
+	// ret, err := nc.Issue(acnt, metacid, nftcid)
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
+	// }
+	// txId := string(ret.Id)
 
-	fmt.Println(txId)
+	// fmt.Println(txId)
 
-	time.Sleep(6 * time.Second)
+	// time.Sleep(6 * time.Second)
 
-	res, err := api.GetTxInfo(string(txId))
+	// res, err := api.GetTxInfo(string(txId))
 
-	// TODO: error handling
-	if err != nil {
-		fmt.Println(err.Error())
-		// c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
-	}
-	fmt.Println(res)
+	// // TODO: error handling
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	// c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
+	// }
+	// fmt.Println(res)
 
-	// TODO: tokId api
-	ctrtInfo, err := api.GetCtrtInfo(ctrtId)
-	fmt.Println(ctrtInfo)
+	// // TODO: tokId api
+	// ctrtInfo, err := api.GetCtrtInfo(ctrtId)
+	// fmt.Println(ctrtInfo)
 
-	m := models.NFT{}
+	// m := models.NFT{}
 
-	m.TokenIdx = 0
-	m.TokenId = string(rune(rand.Int()))
-	m.Price = 0
-	m.Owner = string(acnt.Addr.B58Str())
-	m.TokenMeta = metainfo
-	m.TokenDescription = f.Value["Description"][0]
-	m.IssueTransactionId = txId
-	m.NFTcid = nftcid
-	m.Metacid = metacid
-	m.CollectionBelong = f.Value["Collection"][0]
+	// m.TokenIdx = 0
+	// m.TokenId = string(rune(rand.Int()))
+	// m.Price = 0
+	// m.Owner = string(acnt.Addr.B58Str())
+	// m.TokenMeta = metainfo
+	// m.TokenDescription = f.Value["Description"][0]
+	// m.IssueTransactionId = txId
+	// m.NFTcid = nftcid
+	// m.Metacid = metacid
+	// m.CollectionBelong = f.Value["Collection"][0]
 
-	_, err = m.InsertNFT()
-	if err != nil {
-		fmt.Println(err.Error())
-	}
+	// _, err = m.InsertNFT()
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// }
 
-	c.JSON(http.StatusOK, gin.H{"metacId": metacid, "nftcId": nftcid, "txId": txId})
+	c.JSON(http.StatusOK, gin.H{"metacId": "QmUJVPH7CXmDXf1gs5zYswVfFMizeZ64G6Ky9PmGZWvtra", "nftcId": "QmcBfzyyY5zb2VMykPKv8FY9CfzGUfgZPhNTFeUjU6KPqM", "txId": "97DrMriBWNFTfYSCXwgbK4eYwJg91FeQT2m6tyhRH7cQ"})
 
 }
